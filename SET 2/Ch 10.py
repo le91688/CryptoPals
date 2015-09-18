@@ -1,6 +1,6 @@
 from Crypto.Cipher import AES
 
-plaintext = 'I AM TESTING SOME DUMB SHIT LOLOL TEST THIS OUT'
+plaintext = 'THIS IS A test of AES and stuff'
 
 IV = '0000000000000000'
 
