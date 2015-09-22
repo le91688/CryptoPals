@@ -1,6 +1,11 @@
 from Crypto.Cipher import AES
+import base64
 
-plaintext = 'THIS IS A test of AES and stuff'
+txt = open('10.txt')
+plaintext = txt.read()
+
+plaintext = base64.b64decode(plaintext)
+
 
 IV = '0000000000000000'
 
@@ -76,17 +81,11 @@ def decrypt_CBC(key, string, IV):
 		result= result+ciphertext
 	return result
 	
-	
-	
-	
-ciphertext = (encrypt_CBC(key, plaintext, IV))
 
-print ('AFTER AES CBC encryption = %s '% ciphertext)
-print ('----------------------------------------------')
 
-plaintext = (decrypt_CBC(key,ciphertext, IV))
+decrypted = (decrypt_CBC(key,plaintext, IV))
 
-print ('AFTER AES CBC decryption = %s' %(plaintext))
+print ('AFTER AES CBC decryption = %s' %(decrypted))
 
 
 
