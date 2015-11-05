@@ -101,20 +101,21 @@ def encryption_oracle(pt):
         r = encrypt_CBC(key, pt, IV)
     
     return r
-pt = "TESTING SOME STUFF!"
+pt = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
 print("given input : %s" %pt)
 print ( "encrypted:")
 ct = (encryption_oracle(pt))
 print (ct)
     
-#def detect_ecb(ct):
-#    for l in ct:
-#        l = split_string(l,16)
-#        print (l)
-#        if len(l)!=len(set(l)):
-#            print ('THE FOLLOWING CIPHERTEXT WAS ENCODED WITH ECB')
-#            result=''.join(l)
-#            print (result)    
-
-#detect_ecb(ct)
+def detect_ecb(ct):
+    l = split_string(ct,16)
+    #print (l)
+    if len(l)!=len(set(l)):
+        print ('THE CIPHERTEXT WAS ENCODED WITH ECB')
+        #result=''.join(l)
+        #print (l)    
+    else:
+        print ('THE CIPHERTEXT WAS ENCODED WITH CBC')
+        
+detect_ecb(ct)
 
