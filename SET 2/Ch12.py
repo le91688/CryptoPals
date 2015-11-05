@@ -1,8 +1,13 @@
-'''
-Created on Nov 4, 2015
-
-@author: Larry
-'''
+# MATASANO CRYPTO CHALLENGE
+# SET 2 CHALLENGE 12
+# Byte-at-a-time ECB decryption (Simple)
+#
+# By Larry Espenshade
+# le91688@gmail.com
+# ShadeSec.com
+#
+#11/4/2015
+##########################
 
 from nt import urandom
 from Crypto.Cipher import AES

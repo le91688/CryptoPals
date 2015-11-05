@@ -1,4 +1,13 @@
-__author__ = 'larry'
+# MATASANO CRYPTO CHALLENGE
+# SET 1 CHALLENGE 5
+# Implement repeating-key XOR
+#
+# By Larry Espenshade
+# le91688@gmail.com
+# ShadeSec.com
+#
+#
+##########################
 plaintext = "Burning 'em, if you ain't quick and nimble I go crazy when I hear a cymbal"
 
 key = 'ICE'

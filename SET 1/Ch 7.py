@@ -1,4 +1,13 @@
-
+# MATASANO CRYPTO CHALLENGE
+# SET 1 CHALLENGE 7
+# AES in ECB mode
+#
+# By Larry Espenshade
+# le91688@gmail.com
+# ShadeSec.com
+#
+#
+##########################
 from Crypto.Cipher import AES
 import base64
 key = 'YELLOW SUBMARINE'

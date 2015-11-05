@@ -1,3 +1,13 @@
+# MATASANO CRYPTO CHALLENGE
+# SET 2 CHALLENGE 11
+# An ECB/CBC detection oracle
+#
+# By Larry Espenshade
+# le91688@gmail.com
+# ShadeSec.com
+#11/3/2015
+#
+##########################
 from nt import urandom
 from Crypto.Cipher import AES
 import random

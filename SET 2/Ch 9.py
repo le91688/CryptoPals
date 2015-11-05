@@ -1,3 +1,13 @@
+# MATASANO CRYPTO CHALLENGE
+# SET 2 CHALLENGE 9
+# Implement PKCS#7 padding
+#
+# By Larry Espenshade
+# le91688@gmail.com
+# ShadeSec.com
+#
+#
+##########################
 from Crypto.Cipher import AES
 import sys
 plaintext = 'YELLOW SUBMARINE' #5

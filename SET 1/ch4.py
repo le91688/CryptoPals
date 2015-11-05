@@ -1,4 +1,3 @@
-__author__ = 'larry'
 # MATASANO CRYPTO CHALLENGE
 # SET 1 CHALLENGE 4
 # Detect single-character XOR

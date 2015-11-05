@@ -1,3 +1,13 @@
+# MATASANO CRYPTO CHALLENGE
+# SET 2 CHALLENGE 10
+# Implement CBC mode
+#
+# By Larry Espenshade
+# le91688@gmail.com
+# ShadeSec.com
+#
+#
+##########################
 from Crypto.Cipher import AES
 import base64
 

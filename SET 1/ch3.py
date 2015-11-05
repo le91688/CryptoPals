@@ -1,4 +1,13 @@
-__author__ = 'larry'
+# MATASANO CRYPTO CHALLENGE
+# SET 1 CHALLENGE 3
+# Single-byte XOR cipher
+#
+# By Larry Espenshade
+# le91688@gmail.com
+# ShadeSec.com
+#
+#
+##########################
 import collections
 import string
 

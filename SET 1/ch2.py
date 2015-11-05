@@ -1,4 +1,13 @@
-__author__ = 'larry'
+# MATASANO CRYPTO CHALLENGE
+# SET 1 CHALLENGE 2
+# Fixed XOR
+#
+# By Larry Espenshade
+# le91688@gmail.com
+# ShadeSec.com
+#
+#
+##########################
 some_string = '1c0111001f010100061a024b53535009181c'
 xor_string = '686974207468652062756c6c277320657965'
 

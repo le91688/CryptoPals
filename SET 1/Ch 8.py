@@ -1,3 +1,13 @@
+# MATASANO CRYPTO CHALLENGE
+# SET 1 CHALLENGE 8
+# Detect AES in ECB mode
+#
+# By Larry Espenshade
+# le91688@gmail.com
+# ShadeSec.com
+#
+#
+##########################
 #FFFFFFfrom Crypto.Cipher import AES
 import base64
 
@@ -21,17 +31,15 @@ def split_string(somestring,n):
     return newlist
 
 
-def AES_ECB(key,string):
-    cipher = AES.new(key, AES.MODE_ECB)
-    msg=cipher.decrypt(string)
-    return msg
 
+def detect_ecb(ct):
 for l in ciphertext:
-	l = split_string(l,32)
-	if len(l)!=len(set(l)):
-		print ('THE FOLLOWING CIPHERTEXT WAS ENCODED WITH ECB')
-		result=''.join(l)
-		print (result)
+    l = split_string(l,16)
+    print (l)
+    if len(l)!=len(set(l)):
+        print ('THE FOLLOWING CIPHERTEXT WAS ENCODED WITH ECB')
+        result=''.join(l)
+        print (result)
 
 
 

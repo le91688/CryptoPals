@@ -1,4 +1,13 @@
-__author__ = 'larry'
+# MATASANO CRYPTO CHALLENGE
+# SET 1 CHALLENGE 6
+# Break repeating-key XOR
+#
+# By Larry Espenshade
+# le91688@gmail.com
+# ShadeSec.com
+#
+#
+##########################
 import string
 import base64
 import binascii
