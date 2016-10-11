@@ -8,7 +8,7 @@
 #11/3/2015
 #
 ##########################
-from nt import urandom
+from os import urandom
 from Crypto.Cipher import AES
 import random
 
@@ -102,6 +102,7 @@ def encryption_oracle(pt):
     pt = pad_plaintext(b, key)
     
     choice = random.randint(1,2) #choose ecb cbc
+    #print(choice)
     if choice == 1:
         #print ("ecb")
         r = encrypt_AES_ECB(key, pt)

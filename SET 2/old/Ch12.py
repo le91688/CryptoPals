@@ -6,26 +6,31 @@
 # le91688@gmail.com
 # ShadeSec.com
 #
-#11/4/2015
+#3/11/2016
 ##########################
 
-from nt import urandom
+from os import urandom  #IMPORT DAT ISH
 from Crypto.Cipher import AES
 import random
 import base64
+import binascii
 
-
+#string from da cryptopals (base64 encoded)
 unknown = "Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK"
+pt ="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+#pt = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 
-
-def gen_rand_bytes(n):
+#generate some random bytes
+def gen_rand_bytes(n): 
     r = (urandom(n))
     return r
 
+#Randomly generated key that we will use for this
 key = b'63oD\xd4\xc2n\x91\xd9DM\x83\x14\x89\xc31'
 
-
+#Dat padding
 def pad_plaintext(ba, key):
+    #ba = byte array
     #print ("padding bytearray!")
     #print (ba)
     R = (len(ba) % len(key)) #remainder
@@ -40,7 +45,7 @@ def pad_plaintext(ba, key):
     #print("padded = %s" %padded)
     return padded
     
-
+#func to split strings
 def split_string(somestring, n):
     # create list with length of string
     try:
@@ -53,7 +58,8 @@ def split_string(somestring, n):
     for i in its[::n]:
         newlist.append(somestring[i:i + n:1])
     return newlist
-
+    
+#THE BASIC AES STUFF
 def encrypt_AES_ECB(key,string):
     cipher = AES.new(key, AES.MODE_ECB)
     msg=cipher.encrypt(bytes(string))
@@ -85,7 +91,7 @@ def encrypt_CBC(key, string, IV):
     
 def decrypt_CBC(key, string, IV):
     #IV = str.encode(IV)
-    #result=b''
+    result=b''
     split = split_string(string, len(key)) # split into keysize chunks
     ciphertext = decrypt_AES_ECB(key, split[0]) #ecrypt first chunk with AES
     XORd = xor_strings(ciphertext,IV) # XOR IV and plaintext
@@ -97,18 +103,14 @@ def decrypt_CBC(key, string, IV):
     return result
     
 
-def encryption_oracle(pt,unknown,key):
+def encryption_oracle(pt,unknown,key):  #  AES-128-ECB(your-string || unknown-string, random-key)
     bytes = str.encode(unknown)
-    bytes= base64.b64decode(bytes)
-    #pre = gen_rand_bytes((random.randint(5,10))) 
-    #post = gen_rand_bytes((random.randint(5,10)))
+    bytes= base64.b64decode(bytes)  #decode the unknown string
 
-    b = bytearray()
+    b = bytearray()     #convert pt to a bytearray 
     b.extend(map(ord,pt))
-    b = b+bytes
-    #b= pre + b
-    #b = b + post
-    #print ("bytearray = %s" %b)
+    b = b+bytes         #prepend b to bytearray
+
     pt = pad_plaintext(b, key)
     choice = 1#random.randint(1,2) #choose ecb cbc  ### ALWAYS ECB
     if choice == 1:
@@ -120,22 +122,35 @@ def encryption_oracle(pt,unknown,key):
         r = encrypt_CBC(key, pt, IV)
     
     return r
-pt = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    
+    
 print("given input : %s" %pt)
 print("INPUT SIZE =%i" %len(pt))
 print ( "encrypted:")
+
 ct = (encryption_oracle(pt,unknown,key))
 print (ct)
-print ("")
+print ("============")
     
 def detect_ecb(ct):
-    l = split_string(ct,16)
-    print (ct[31])
+    l = split_string(ct,16) #FIXME
+    #print (ct[31])
     if len(l)!=len(set(l)):
-        print ('THE CIPHERTEXT WAS ENCODED WITH ECB')
+        #print ('THE CIPHERTEXT WAS ENCODED WITH ECB')
         #result=''.join(l)
-        #print (l)    
+        #print (l)
+        return True
     else:
-        print ('NOPE')
+        return False
         
+counter = 0
+
+for x in range(0, (len(ct)-1)):
+    feeder = (ct[:x])
+    test = detect_ecb(feeder)
+    if test == False:
+        counter +=1
+
+print (counter)
+    
 detect_ecb(ct)
