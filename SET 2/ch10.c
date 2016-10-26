@@ -3,7 +3,7 @@
 #include "aes.h"
 #include "aes.c"
 //parameters//////////////////////////////
-unsigned char input[64]="THIS IS A TEST LARRY YA BISH ASS WAS GOOD";
+unsigned char input[64]="THIS IS A TEST";
 int ptsize=41;
 int blocksize = 16;
 unsigned char key[16]="YELLOW SUBMARINE";
