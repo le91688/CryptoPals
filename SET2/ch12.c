@@ -2,15 +2,17 @@
 #include <stdlib.h>
 #include <time.h>
 #include "ch10.h"
-
+#include "base64.h"
 
 unsigned int keysize=16;
 unsigned char randokey[16];
 unsigned char ciphertext[2048];
 unsigned char decoded[2048];
 
-//char post[1024]="Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK";
-char post[1024]="TEEEEEEEEEEESSSSSSSSSSSTTTTTTTTTTTTTTTTT@#$@#$@#QWEQWDDDDDDDDDDDDDDSSSSSSSSSSSSS";
+char b64d[2048]="Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGF"
+                "pciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IH"
+                "RvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK";
+char unb64d[2048];
 
 unsigned int rand_array(int n, char *buf)  //Generate array of random bytes size n
 {
@@ -29,8 +31,8 @@ int encryption_oracle(char *input, char *output)    //ENCRYPT AS ECB with random
     //base64 decode pre
     //get length of pre
     strcpy(temp,input);  //copy input into temp
-    memcpy(temp+ptsize,post,strlen(post));          // add mysterydata after input in temp
-    int lentemp = ptsize+strlen(post);   //get new size
+    memcpy(temp+ptsize,unb64d,strlen(unb64d));          // add mysterydata after input in temp
+    int lentemp = ptsize+strlen(unb64d);   //get new size
     //encrypt ECB
     int ctsize = AES128_ECB_enc(temp, randokey, output, keysize, lentemp);
     return ctsize;
@@ -93,7 +95,6 @@ void bat_ecb_decrypt()      //function to detect blocksize / block cipher mode /
     memset(test1,0,1024); //ZERO OUT testinput
     memset(test2,0,1024); //ZERO OUT testinput
     memset(test2,0x61,bs); // fill test2 with (blocksize)*"a"
-    
     memset(temp1,0x0,bs);
     memset(temp2,0x0,bs);
     int start = (bs)-1; //31
@@ -104,16 +105,11 @@ void bat_ecb_decrypt()      //function to detect blocksize / block cipher mode /
     printf("\n");
     for (int j=0;j<(mysterysize);j++){  // for each byte of mysterytext
         if (j%bs==0){
-       // puts("incrementing b\n");
         b++;
         }  
         size = encryption_oracle(test1+(j%bs),temp1);  // TEMP holds one byte short input (first letter of mystery)
-        //puts("test1\n");
-        //puts(test1+(j%bs));
         for (int i=1;i<=255;i++){  //for all ascii
            (test2+j)[(bs)-1]=i;    //change last char of testinput to test
-           //puts("test2\n");
-           //puts(test2+(j%bs));
             size = encryption_oracle(test2+(j%bs),temp2);  //encrypt it
             ret = memcmp(temp1, temp2,(bs*b)); // compare temp / temp2 
             if (ret==0){
@@ -135,6 +131,7 @@ void bat_ecb_decrypt()      //function to detect blocksize / block cipher mode /
 
 int main()
 {
+    Base64decode(unb64d, b64d);
     //generate random stuff 
     srand(time(NULL));
     rand_array(keysize,randokey); //generate random key
