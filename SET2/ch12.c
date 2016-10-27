@@ -10,7 +10,7 @@ unsigned char ciphertext[2048];
 unsigned char decoded[2048];
 
 //char post[1024]="Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK";
-char post[1024]="DIS DAT MYSTERIOUS JAUNT WAS GOOD CAN U DECRYPT DIS> GWSER#R@#QFASDASD@!@!@!#!@#$!@$D";
+char post[1024]="TEEEEEEEEEEESSSSSSSSSSSTTTTTTTTTTTTTTTTT@#$@#$@#QWEQWDDDDDDDDDDDDDDSSSSSSSSSSSSS";
 
 unsigned int rand_array(int n, char *buf)  //Generate array of random bytes size n
 {
