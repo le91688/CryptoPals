@@ -10,7 +10,7 @@ unsigned char ciphertext[2048];
 unsigned char decoded[2048];
 
 //char post[1024]="Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK";
-char post[1024]="YOLOSWAGYOLOSWAGYO";
+char post[1024]="DIS DAT MYSTERIOUS JAUNT WAS GOOD CAN U DECRYPT DIS> GWSER#R@#QFASDASD@!@!@!#!@#$!@$D";
 
 unsigned int rand_array(int n, char *buf)  //Generate array of random bytes size n
 {
@@ -56,12 +56,7 @@ void bat_ecb_decrypt()      //function to detect blocksize / block cipher mode /
         }
 
         if (size > init){               // when size changes from initial, record the jump, this is blocksize
-            //mysterysize = strlen(testinput+i);
             bs = size-init;
-            //printf("init = %d\n", init);
-            //printf("i=%d\n",strlen(testinput+i));
-            //printf("size after jump =%d\n", size);
-            //printf("\nblocksize is %d bytes\n", bs);
             mysterysize=(init+1)-strlen(testinput+i);
             printf("mysterystring is %d\n" ,mysterysize) ;
             break;
@@ -105,22 +100,32 @@ void bat_ecb_decrypt()      //function to detect blocksize / block cipher mode /
     memset(test1,0x61,start); // start test1 with 1 byte short input
     printf("BS%d",bs);
     int ret=0;
+    int b=0;
     printf("\n");
-    for (int j=0;j<(bs);j++){  // for each byte of blocksize
-        size = encryption_oracle(test1+j,temp1);  // TEMP holds one byte short input (first letter of mystery)
-
+    for (int j=0;j<(mysterysize);j++){  // for each byte of mysterytext
+        if (j%bs==0){
+       // puts("incrementing b\n");
+        b++;
+        }  
+        size = encryption_oracle(test1+(j%bs),temp1);  // TEMP holds one byte short input (first letter of mystery)
+        //puts("test1\n");
+        //puts(test1+(j%bs));
         for (int i=1;i<=255;i++){  //for all ascii
-            (test2+j)[bs-1]=i;    //change last char of testinput to test
-            size = encryption_oracle(test2+j,temp2);  //encrypt it
-            ret = memcmp(temp1, temp2, 16); // compare temp / temp2 
+           (test2+j)[(bs)-1]=i;    //change last char of testinput to test
+           //puts("test2\n");
+           //puts(test2+(j%bs));
+            size = encryption_oracle(test2+(j%bs),temp2);  //encrypt it
+            ret = memcmp(temp1, temp2,(bs*b)); // compare temp / temp2 
             if (ret==0){
-                printf("match = %x\n",i);
+                //printf("match = %x\n",i);
+                (test2+j)[bs*b-1]=i;
                 decoded[z++]=i;
                 break;
                 
             }
-        
         }
+
+           
     }
     
     
