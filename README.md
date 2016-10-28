@@ -7,7 +7,7 @@ learn programming in C/python, and my first crack at GIT and GitHub.
 
 | Challenge                        | Progress |
 | :------------------------------- | -------------: |
-| 1: Set 1 challenges are complete, but an incomplete solution set is included here.         |     |
+| 1: Set 1 challenges are complete       |     |
 |
 
 ##Set 2:  Block crypto
@@ -28,7 +28,7 @@ learn programming in C/python, and my first crack at GIT and GitHub.
 | 17: The CBC padding oracle                   |  |
 | 18: Implement CTR, the stream cipher mode   | |
 | 19: Break fixed-nonce CTR mode using substitutions  | |
-| 20: Break fixed-nonce CTR statistically |Complete   |
+| 20: Break fixed-nonce CTR statistically |  |
 | 21: Implement the MT19937 Mersenne Twister RNG |   |
 | 22: Crack an MT19937 seed    |  |
 | 23: Clone an MT19937 RNG from its output |  |
@@ -49,7 +49,7 @@ learn programming in C/python, and my first crack at GIT and GitHub.
 ##Set 5:  Diffie-Hellman and friends
 | Challenge                                     | Progress |
 | :-------------------------------------------- | -------------: |
-| 33:  Implement Diffie-Hellman|Completed|
+| 33:  Implement Diffie-Hellman||
 | 34:  Implement a MITM key-fixing attack on Diffie-Hellman with parameter injection| |
 | 35:  Implement DH with negotiated groups, and break with malicious "g" parameters| |
 | 36:  Implement Secure Remote Password (SRP)| |
