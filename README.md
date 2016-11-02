@@ -17,7 +17,7 @@ learn programming in C/python, and my first crack at GIT and GitHub.
 | 10:Implement CBC moode                        | Complete   |
 | 11: An ECB/CBC detection oracle               | Complete   |
 | 12: Byte-at-a-time ECB decryption (simple)    | Complete   |
-| 13: ECB cut-and-paste                         | |
+| 13: ECB cut-and-paste                         | complete |
 | 14: Byte-at-a-time ECB decryption (Harder)    | |
 | 15: PKCS#7 padding validation                 | |
 | 16: CBC bitflipping attacks                   | |
