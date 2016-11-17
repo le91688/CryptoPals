@@ -8,6 +8,7 @@ unsigned int keysize=16;
 unsigned char randokey[16];
 unsigned char ciphertext[2048];
 unsigned char decoded[2048];
+unsigned char pre[8];
 
 char b64d[2048]="Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGF"
                 "pciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IH"
@@ -30,6 +31,7 @@ int encryption_oracle(char *input, char *output)    //ENCRYPT AS ECB with random
     memset(ciphertext, 0, 2048);
     //base64 decode pre
     //get length of pre
+    
     strcpy(temp,input);  //copy input into temp
     memcpy(temp+ptsize,unb64d,strlen(unb64d));          // add mysterydata after input in temp
     int lentemp = ptsize+strlen(unb64d);   //get new size
@@ -65,21 +67,29 @@ void bat_ecb_decrypt()      //function to detect blocksize / block cipher mode /
         }
     }
    
-    //now detect block cipher mode              
-    printf("detecting block cipher mode\n");
-    size = encryption_oracle(testinput, temp1);  // feed whole test input
+    //now detect block cipher mode
 
-    for (int j=0; j<size-bs; j+=bs){         ///iterate through blocks of ciphertext
-        int test =0;
-        mode=0;
-        test = memcmp(ciphertext+j, ciphertext+j+bs, bs); //test for repeating blocks with memcmp
+    printf("detecting block cipher mode\n");
+    memset(testinput,0,1024); //ZERO OUT testinput
+    for (int i=0;i<5;i++){
+        memset(testinput,0x61,i); //fill test input with i*"a"s
+        //puts(testinput);
+        //puts("\n");
+        size = encryption_oracle(testinput, temp1);  // feed current test input
+        //puts(temp1);
+        for (int j=0; j<size-bs; j+=bs){         ///iterate through blocks of ciphertext
+            int test =0;
+            mode=0;
+            test = memcmp(ciphertext+j, ciphertext+j+bs, bs); //test for repeating blocks with memcmp
 
             if (test ==0){                              // if you have a match, increment mode
                 mode+=1;
+                //printf("repeat detected input size %d",i);
+                //printf("in block %d",j);
                 break;
             }
-    }
-        
+        }
+    }   
     if (mode>0){            // test if mode was incremented for ECB
         puts("ECB\n");
     }        
@@ -92,8 +102,8 @@ void bat_ecb_decrypt()      //function to detect blocksize / block cipher mode /
     
     unsigned char test1[1024];
     unsigned char test2[1024];
-    memset(test1,0,1024); //ZERO OUT testinput
-    memset(test2,0,1024); //ZERO OUT testinput
+    memset(test1,0,1024); //ZERO OUT test1
+    memset(test2,0,1024); //ZERO OUT test2
     memset(test2,0x61,bs); // fill test2 with (blocksize)*"a"
     memset(temp1,0x0,bs);
     memset(temp2,0x0,bs);
@@ -107,14 +117,14 @@ void bat_ecb_decrypt()      //function to detect blocksize / block cipher mode /
         if (j%bs==0){
         b++;
         }  
-        size = encryption_oracle(test1+(j%bs),temp1);  // TEMP holds one byte short input (first letter of mystery)
+        size = encryption_oracle(test1+(j%bs),temp1);  // TEMP1 holds ecrypted one byte short input then 2 bytes short, then 3 bytes short ...
         for (int i=1;i<=255;i++){  //for all ascii
-           (test2+j)[(bs)-1]=i;    //change last char of testinput to test
-            size = encryption_oracle(test2+(j%bs),temp2);  //encrypt it
-            ret = memcmp(temp1, temp2,(bs*b)); // compare temp / temp2 
+           (test2+j)[(bs)-1]=i;    //change last char of test2 to every ascii char
+            size = encryption_oracle(test2+(j%bs),temp2);  //encrypt it 
+            ret = memcmp(temp1, temp2,(bs*b)); // compare temp / temp2 until you find match of last char
             if (ret==0){
-                //printf("match = %x\n",i);
-                (test2+j)[bs*b-1]=i;
+               
+                (test2+j)[bs*b-1]=i; //set that char of test2 to the winning character
                 decoded[z++]=i;
                 break;
                 
@@ -135,6 +145,7 @@ int main()
     //generate random stuff 
     srand(time(NULL));
     rand_array(keysize,randokey); //generate random key
+    rand_array(8,pre); //generate random key
     
     //call detection function
     bat_ecb_decrypt();   
