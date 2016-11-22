@@ -18,9 +18,9 @@ learn programming in C/python, and my first crack at GIT and GitHub.
 | 11: An ECB/CBC detection oracle               | Complete   |
 | 12: Byte-at-a-time ECB decryption (simple)    | Complete   |
 | 13: ECB cut-and-paste                         | complete |
-| 14: Byte-at-a-time ECB decryption (Harder)    | |
-| 15: PKCS#7 padding validation                 | |
-| 16: CBC bitflipping attacks                   | |
+| 14: Byte-at-a-time ECB decryption (Harder)    |complete |
+| 15: PKCS#7 padding validation                 |complete |
+| 16: CBC bitflipping attacks                   | complete|
 
 ##Set 3:  Block & stream crypto
 | Challenge                                     | Progress |
