@@ -79,30 +79,23 @@ int main()
     int test;
     for (int i=0; i<offset;i++){
         memcpy(tmp,ct,size);
-        //printf("i=%d\n",i);
         for(int x=0;x<i%16;x++){ //set previous bytes
-            //printf("setting up prev bytes : tmp[%d]^=%x^%x\n",offset-x-(b*16)-1,r[offset-x-(b*16)-1],i%16+1);
+       
             tmp[offset-x-(b*16)-1]^=r[offset-x-(b*16)-1]^i%16+1;
         }
-        //printf("testing tmp[%d] for %x\n", offset-i-1,i%16+1);
-  
-        //printf("b=%d\n",b);
+
         for(int p=0x1;p<=0xff;p++){
             if(p!=i%16+1 || p==padval){
-                //printf("testing tmp[%d]^=%x^%d\n",offset-i-1,p,i%16+1);
+
                 tmp[offset-i-1]^=p^i%16+1;  //test for p
                 test = check_ct(tmp,size-(b*16));
                 if(test==1){
-                    //printf("winning p @ %x\n", p);
-                    //printf("saving p to r[%d]\n",offset-i-1);
                     r[offset-i-1]=p;  //save to r and break
                     if(i==1){
                         padval=p;
                     }
                     if(i%16==15){
-                        //printf("inc b\n");
                         b++;
-                        //printf("new submit size is %d\n",size-(b*16));
                     }
                     break;
                 }
@@ -113,10 +106,10 @@ int main()
             }
             
         }
-                        if (test==0){
-                    printf("error no value for p\n");
-                    return 0;
-                }
+        if (test==0){
+            printf("error no value for p\n");
+            return 0;
+        }
     }
 
     printf("\ndecrypted:\n");
