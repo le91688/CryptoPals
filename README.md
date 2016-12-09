@@ -25,7 +25,7 @@ learn programming in C/python, and my first crack at GIT and GitHub.
 ##Set 3:  Block & stream crypto
 | Challenge                                     | Progress |
 | :-------------------------------------------- | -------------: |
-| 17: The CBC padding oracle                   |  |
+| 17: The CBC padding oracle                   | Complete |
 | 18: Implement CTR, the stream cipher mode   | |
 | 19: Break fixed-nonce CTR mode using substitutions  | |
 | 20: Break fixed-nonce CTR statistically |  |
